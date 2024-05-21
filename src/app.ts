@@ -1,6 +1,7 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import { ProductRoutes } from "./app/modules/products/product.route";
+import { OrderRoutes } from "./app/modules/orders/order.route";
 const app = express();
 
 //parser
@@ -9,6 +10,7 @@ app.use(cors());
 
 //Route
 app.use("/api/products", ProductRoutes);
+app.use("/api/orders", OrderRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
