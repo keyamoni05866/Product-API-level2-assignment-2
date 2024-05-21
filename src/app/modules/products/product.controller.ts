@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { ProductServices } from "./product.service";
 import { productValidationSchema } from "./product.validation";
-import { ObjectId } from "mongoose";
 import { TProduct } from "./product.interface";
 
+///create product
 const createProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
@@ -28,13 +28,29 @@ const createProduct = async (req: Request, res: Response) => {
 //get all Product
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const result = await ProductServices.getAllProductsFromDB();
-
-    res.status(200).send({
-      success: true,
-      message: "Products fetched successfully!",
-      data: result,
-    });
+    //for search query
+    const { searchTerm } = req.query;
+    if (searchTerm) {
+      const result = await ProductServices.getAllProductsFromDB(
+        searchTerm as string
+      );
+      res.status(200).send({
+        success: true,
+        message: `Products matching search term ${searchTerm} fetched successfully`,
+        data: result,
+      });
+    }
+    //for get all data
+    else {
+      const result = await ProductServices.getAllProductsFromDB(
+        searchTerm as string
+      );
+      res.status(200).send({
+        success: true,
+        message: "Products fetched successfully!",
+        data: result,
+      });
+    }
   } catch (err: any) {
     res.status(404).send({
       success: false,
@@ -43,6 +59,7 @@ const getAllProducts = async (req: Request, res: Response) => {
     });
   }
 };
+
 ///get single product by id
 
 const getSingleProduct = async (req: Request, res: Response) => {
@@ -65,8 +82,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
   }
 };
 
-//delete product from
-
+//delete product
 const deleteOneProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -85,6 +101,8 @@ const deleteOneProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
+//product update
 
 const updateProduct = async (req: Request, res: Response) => {
   try {
