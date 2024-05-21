@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { TProduct } from "./product.interface";
 import { Product } from "./product.model";
 
@@ -22,9 +21,11 @@ const getSingleProductFromDB = async (_id: string) => {
 
 //update a data
 
-const updateProduct = async (_id: string) => {
+const updateProduct = async (_id: string, updateData: TProduct) => {
   console.log({ _id });
-  const result = await Product.findOneAndUpdate({ _id });
+  const result = await Product.findByIdAndUpdate(_id, updateData, {
+    returnOriginal: false,
+  });
   return result;
 };
 

@@ -68,9 +68,9 @@ const getSingleProduct = async (req: Request, res: Response) => {
 
 const deleteOneProduct = async (req: Request, res: Response) => {
   try {
-    const { deletedId } = req.params;
-    const result = await ProductServices.deleteOneProductFromDB(deletedId);
-    console.log(result);
+    const { productId } = req.params;
+
+    const result = await ProductServices.deleteOneProductFromDB(productId);
     res.send({
       success: true,
       message: "Product deleted successfully!",
@@ -87,14 +87,14 @@ const deleteOneProduct = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response) => {
   try {
-    const { updateId } = req.params;
-    console.log("id", { updateId });
+    const { productId } = req.params;
+    // console.log(productId);
     const updateData: TProduct = req.body;
     console.log("update data", updateData);
-    const result = await ProductServices.updateProduct(updateId);
+    const result = await ProductServices.updateProduct(productId, updateData);
     res.send({
       success: true,
-      message: "update product",
+      message: "Product updated successfully!",
       data: result,
     });
   } catch (err: any) {
