@@ -9,8 +9,11 @@ const createOrderIntoDB = async (payload: TOrder) => {
 //retrieve all data from db
 
 const getAllDataFromDB = async (email: string) => {
+  //for search query
   if (email) {
-    const result = await Order.find({ email: { $regex: email } });
+    const result = await Order.find({
+      email: { $regex: email, $options: "i" },
+    });
     return result;
   } else {
     const result = await Order.find();

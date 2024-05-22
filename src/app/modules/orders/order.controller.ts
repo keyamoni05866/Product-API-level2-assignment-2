@@ -47,7 +47,6 @@ const getAllOrder = async (req: Request, res: Response) => {
     res.status(500).send({
       success: false,
       message: "Order not found",
-      error: err,
     });
   }
 };

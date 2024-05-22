@@ -51,11 +51,10 @@ const getAllProducts = async (req: Request, res: Response) => {
         data: result,
       });
     }
-  } catch (err: any) {
+  } catch (error) {
     res.status(404).send({
       success: false,
-      message: err.message || "something went wrong",
-      error: err,
+      message: "Products Not Found",
     });
   }
 };
@@ -68,16 +67,23 @@ const getSingleProduct = async (req: Request, res: Response) => {
     // console.log(productId);
     const result = await ProductServices.getSingleProductFromDB(productId);
     // console.log(result);
-    res.send({
-      success: true,
-      message: "Single Products fetched successfully!",
-      data: result,
-    });
-  } catch (err: any) {
+    if (result) {
+      res.send({
+        success: true,
+        message: "Product fetched successfully!",
+        data: result,
+      });
+    } else {
+      res.send({
+        success: false,
+        message: "Product Not Found!",
+        data: null,
+      });
+    }
+  } catch (error) {
     res.status(404).send({
       success: false,
-      message: err.message || "something went wrong",
-      error: err,
+      message: "Single Product Not Found",
     });
   }
 };
@@ -88,16 +94,23 @@ const deleteOneProduct = async (req: Request, res: Response) => {
     const { productId } = req.params;
 
     const result = await ProductServices.deleteOneProductFromDB(productId);
-    res.send({
-      success: true,
-      message: "Product deleted successfully!",
-      data: result,
-    });
-  } catch (err: any) {
+    if (result) {
+      res.send({
+        success: true,
+        message: "Product deleted successfully!",
+        data: null,
+      });
+    } else {
+      res.send({
+        success: false,
+        message: "Product Not Found",
+        data: null,
+      });
+    }
+  } catch (err) {
     res.status(404).send({
       success: false,
-      message: err.message || "something went wrong",
-      error: err,
+      message: "Something Went Wrong",
     });
   }
 };
@@ -108,19 +121,26 @@ const updateProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     // console.log(productId);
-    const updateData: TProduct = req.body;
-    console.log("update data", updateData);
+    const updateData = req.body;
+    // console.log("update data", updateData);
     const result = await ProductServices.updateProduct(productId, updateData);
-    res.send({
-      success: true,
-      message: "Product updated successfully!",
-      data: result,
-    });
-  } catch (err: any) {
+    if (result) {
+      res.send({
+        success: true,
+        message: "Product updated successfully!",
+        data: result,
+      });
+    } else {
+      res.send({
+        success: false,
+        message: "Product Not Found",
+        data: null,
+      });
+    }
+  } catch (err) {
     res.status(404).send({
       success: false,
-      message: err.message || "something went wrong",
-      error: err,
+      message: "Something went wrong",
     });
   }
 };
