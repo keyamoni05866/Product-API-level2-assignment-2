@@ -28,7 +28,7 @@ const getSingleProductFromDB = async (_id: string) => {
 
 //update a data
 const updateProduct = async (_id: string, updateData: TProduct) => {
-  console.log({ _id });
+  // console.log({ _id });
   const result = await Product.findByIdAndUpdate(_id, updateData, {
     returnOriginal: false,
   });
