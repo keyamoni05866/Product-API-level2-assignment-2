@@ -15,10 +15,10 @@ const createOrder = async (req: Request, res: Response) => {
       message: "Order created successfully!",
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).send({
       success: false,
-      message: err.message || "something went wrong",
+      message: "something went wrong",
       error: err,
     });
   }
@@ -43,7 +43,7 @@ const getAllOrder = async (req: Request, res: Response) => {
         data: result,
       });
     }
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).send({
       success: false,
       message: "Order not found",
