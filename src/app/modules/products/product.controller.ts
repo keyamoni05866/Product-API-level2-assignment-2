@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ProductServices } from "./product.service";
 import { productValidationSchema } from "./product.validation";
-import { TProduct } from "./product.interface";
 
 ///create product
 const createProduct = async (req: Request, res: Response) => {
@@ -16,11 +15,10 @@ const createProduct = async (req: Request, res: Response) => {
       message: "Product created successfully!",
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     res.status(404).send({
       success: false,
-      message: err.message || "something went wrong",
-      error: err,
+      message: "something went wrong",
     });
   }
 };
