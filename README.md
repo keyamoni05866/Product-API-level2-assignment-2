@@ -39,8 +39,8 @@ Below are the available API endpoints:<br>
 - _GET/api/products/:productId_: This for get a single products.
 - _GET/api/products?searchTerm=samsung_: This is for search query result.
 - _PUT/api/products/:productId_: This is for update a product.
-- _DELETE/api/products/:productId_: This is for DELETE a product.
-  ----- for Orders -----
+- _DELETE/api/products/:productId_: This is for DELETE a product. <br>
+  ----- for Orders ----- <br>
 
 - _POST/api/orders/create-product_: This for create order.
 - _POST/api/orders_: This for get orders.
