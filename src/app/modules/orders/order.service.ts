@@ -8,9 +8,14 @@ const createOrderIntoDB = async (payload: TOrder) => {
 
 //retrieve all data from db
 
-const getAllDataFromDB = async () => {
-  const result = await Order.find();
-  return result;
+const getAllDataFromDB = async (email: string) => {
+  if (email) {
+    const result = await Order.find({ email: { $regex: email } });
+    return result;
+  } else {
+    const result = await Order.find();
+    return result;
+  }
 };
 
 export const OrderServices = {

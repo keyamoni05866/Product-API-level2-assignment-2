@@ -6,6 +6,7 @@ export const orderValidationSchema = z.object({
       required_error: "Email is required",
     })
     .email(),
+
   productId: z.string({
     required_error: "productId is required",
   }),
